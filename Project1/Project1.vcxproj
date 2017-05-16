@@ -113,6 +113,7 @@
     <ClCompile Include="HidCom.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HidCom.h" />
