@@ -1,4 +1,2 @@
-PRESS H;
-TYPE P;
-RELEASE H;
-STRING "HI there You Guys..."
+DELAY 10;
+PRESS A;

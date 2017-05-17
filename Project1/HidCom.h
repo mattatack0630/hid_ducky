@@ -7,9 +7,10 @@ class HidCommunication {
 public:
 	int MAX_KEYS = 5;
 	vector<Key> keysDown;
-	FILE* hidFile;
+	//FILE* hidFile;
+	const char* hidFile;
 
-	HidCommunication(FILE*);
+	HidCommunication(const char* file);
 
 	void sendKeys();
 	void type(Key);

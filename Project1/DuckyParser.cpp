@@ -1,10 +1,12 @@
 #include "DuckyParser.h"
 #include <vector>
 #include <fstream>
-#include <iostream>
 #include <algorithm>
 #include <iterator>
 #include <regex>
+#include <thread>         // std::this_thread::sleep_for
+#include <chrono>
+#include <iostream>;
 
 #define COMMAND_DELM ";"
 #define COMMAND_SEP_DELM ' '
@@ -12,6 +14,7 @@
 #define RELEASE string("RELEASE")
 #define TYPE	string("TYPE")
 #define STRING	string("STRING")
+#define DELAY	string("DELAY")
 
 using namespace std;
 
@@ -104,9 +107,21 @@ void DuckyParser::parseLine(string line)
 				Key key = *keyMap[c];
 				hidCom->type(key);
 			}
-
-			cout << "value = " << value << endl;
 		}
+		if (command == DELAY) {
+
+			auto start = std::chrono::system_clock::now();
+			cout << "start" << endl;
+			while (true) {
+				auto end = std::chrono::system_clock::now();
+				std::chrono::duration<double> diff = end - start;
+				if (diff.count() > stod(value)) break;
+			}
+			cout << "end" << endl;
+		}
+
+
+
 
 	}
 }

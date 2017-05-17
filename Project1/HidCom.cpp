@@ -1,10 +1,11 @@
 #include "HidCom.h"
 #include <stdio.h>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
-HidCommunication::HidCommunication(FILE* _file) {
+HidCommunication::HidCommunication(const char* _file) {
 	hidFile = _file;
 }
 
@@ -13,11 +14,23 @@ void HidCommunication::sendKeys() {
 	vector<char> keyCodes = compileKeys();
 	char modBits = compileMods();
 
-	fprintf(hidFile, "%c%c", modBits, '\x00');
+	ofstream stream;
+	stream.open(hidFile);
+
+	stream << modBits;
+	stream << '\x00';
 
 	for (char c : keyCodes) {
-		fprintf(hidFile, "%c", c);
+		stream << c;
 	}
+
+	stream.close();
+
+	//fprintf(hidFile, "%c%c", modBits, '\x00');
+
+	//for (char c : keyCodes) {
+	//	fprintf(hidFile, "%c", c);
+	//}
 }
 
 vector<char> HidCommunication::compileKeys()
