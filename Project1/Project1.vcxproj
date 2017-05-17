@@ -110,12 +110,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DuckyParser.cpp" />
     <ClCompile Include="HidCom.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Makefile" />
+    <Text Include="Makefile">
+      <FileType>CppCode</FileType>
+    </Text>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DuckyParser.h" />
     <ClInclude Include="HidCom.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="resource.h" />

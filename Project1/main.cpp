@@ -2,26 +2,20 @@
 #include <iostream>
 #include "HidCom.h"
 #include <stdio.h>
+#include "DuckyParser.h"
+#include <cstring>
 
 using namespace std;
 
 int main() 
 {
-	FILE* file = fopen("test.txt","w");
+	FILE* file = fopen("test.txt","wb");
 
 	HidCommunication hidCom(file);
+	DuckyParser parser(&hidCom);
+	parser.initKeyMap();
 
-	hidCom.type(KEY_H);
-	hidCom.type(KEY_E);
-	hidCom.type(KEY_L);
-	hidCom.type(KEY_L);
-	hidCom.type(KEY_O);
-
-	hidCom.type(KEY_W);
-	hidCom.type(KEY_O);
-	hidCom.type(KEY_R);
-	hidCom.type(KEY_L);
-	hidCom.type(KEY_D);
+	parser.parseProgram(string("STRING \"HELLO WORLD\""));
 
 	fclose(file);
 }
