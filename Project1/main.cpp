@@ -12,25 +12,17 @@ using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-	//char* deviceFileName = argv[1];
-	//char* codeFileName = argv[2];
+	char* deviceFileName = argv[1];
+	char* codeFileName = argv[2];
 
-
-	//FILE* file = fopen("test.txt", "wb");
-
-	HidCommunication hidCom("test.txt");
+	HidCommunication hidCom(deviceFileName);
 	DuckyParser parser(&hidCom);
 	parser.initKeyMap();
 
-
 	string str;
-	ifstream readFile("Read.txt");
+	ifstream readFile(codeFileName);
 
 	while (getline(readFile, str)){
 		parser.parseProgram(str);
 	}
-
-	//cin.get();
-
-	//fclose(file);
 }

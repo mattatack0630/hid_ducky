@@ -1,14 +1,10 @@
 #include "DuckyParser.h"
 #include <vector>
-#include <fstream>
-#include <algorithm>
-#include <iterator>
 #include <regex>
-#include <thread>         // std::this_thread::sleep_for
+#include <thread>
 #include <chrono>
-#include <iostream>;
 
-#define COMMAND_DELM ";"
+#define COMMAND_DELM ';'
 #define COMMAND_SEP_DELM ' '
 #define PRESS	string("PRESS")
 #define RELEASE string("RELEASE")
@@ -18,16 +14,7 @@
 
 using namespace std;
 
-vector<string> split(const string& input, const string& r) {
-	// passing -1 as the submatch index parameter performs splitting
-	regex re(r);
-	sregex_token_iterator
-		first{ input.begin(), input.end(), re, -1 },
-		last;
-	return{ first, last };
-}
-
-vector<string> split2(const string& str, const char r){
+vector<string> split(const string& str, const char r){
 	string current = "";
 	vector<string> list;
 	
@@ -37,18 +24,15 @@ vector<string> split2(const string& str, const char r){
 		if (c == r) {
 			list.push_back(current);
 			current = string("");
-			//cout << endl;
 		}
 		else if (c == '\"') {
 			i++;
 			while (str[i] != '\"') {
-				//cout << str[i];
 				current += str[i];
 				i++; 
 			}
 		}
 		else {
-			//cout << c;
 			current += c;
 		}
 	}
@@ -70,6 +54,7 @@ string trim(const string& str)
 	return str.substr(first, (last - first + 1));
 }
 
+
 DuckyParser::DuckyParser(HidCommunication* _com) 
 {
 	hidCom = _com;
@@ -85,7 +70,7 @@ void DuckyParser::parseProgram(string lines)
 
 void DuckyParser::parseLine(string line) 
 {
-	vector<string> data = split2(line, COMMAND_SEP_DELM);
+	vector<string> data = split(line, COMMAND_SEP_DELM);
 	
 	if (data.size() >= 2) {
 		string command = data.at(0);
@@ -109,20 +94,13 @@ void DuckyParser::parseLine(string line)
 			}
 		}
 		if (command == DELAY) {
-
-			auto start = std::chrono::system_clock::now();
-			cout << "start" << endl;
+			auto start = chrono::system_clock::now();
 			while (true) {
-				auto end = std::chrono::system_clock::now();
-				std::chrono::duration<double> diff = end - start;
+				auto end = chrono::system_clock::now();
+				chrono::duration<double> diff = end - start;
 				if (diff.count() > stod(value)) break;
 			}
-			cout << "end" << endl;
 		}
-
-
-
-
 	}
 }
 

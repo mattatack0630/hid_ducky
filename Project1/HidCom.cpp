@@ -25,12 +25,6 @@ void HidCommunication::sendKeys() {
 	}
 
 	stream.close();
-
-	//fprintf(hidFile, "%c%c", modBits, '\x00');
-
-	//for (char c : keyCodes) {
-	//	fprintf(hidFile, "%c", c);
-	//}
 }
 
 vector<char> HidCommunication::compileKeys()
@@ -64,7 +58,6 @@ char HidCommunication::compileMods()
 
 	return bitmap;
 }
-
 
 void HidCommunication::type(Key _key) {
 	add(_key);
