@@ -5,15 +5,18 @@ using namespace std;
 
 class Key {
 public:
-	vector<char> buttons;
-	vector<char> mods;
+	vector<char> buttons;	// Buttons to press
+	vector<char> mods;		// Modifiers to use
 	
+	// No modifier constructor
 	Key(int, const char*);
+	// Modifier constructor
 	Key(int, int, const char*, const char*);
-
+	// equals overload
 	bool operator==(Key);
 };
 
+// Key Modifiers
 const char MOD_CTRL_L =		1;
 const char MOD_SHIFT_L =	2; 
 const char MOD_ALT_L =		4;
@@ -23,6 +26,7 @@ const char MOD_SHIFT_R =		32;
 const char MOD_ALT_R =		64;
 const char MOD_GUI_R =		128;
 
+// Key Objects
 const Key KEY_A_L(1, new char[1] {'\x04'});
 const Key KEY_B_L(1, new char[1]{ '\x05' });
 const Key KEY_C_L(1, new char[1]{ '\x06' });

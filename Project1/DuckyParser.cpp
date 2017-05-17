@@ -14,22 +14,38 @@
 
 using namespace std;
 
-vector<string> split(const string& str, const char r){
+// **** This method definatly needs some fixing! ****
+vector<string> split(const string& str, const char r, bool ignoreQoute){
 	string current = "";
 	vector<string> list;
 	
 	for (size_t i = 0; i<str.length(); i++) {
 
 		char c = str[i];
+		char cb = i > 0 ? str[i - 1] : 0;
+
 		if (c == r) {
 			list.push_back(current);
 			current = string("");
 		}
-		else if (c == '\"') {
+		else if (c == '\"' && cb != '\\' && ignoreQoute) {
 			i++;
-			while (str[i] != '\"') {
-				current += str[i];
-				i++; 
+			char c1 = str[i];
+			char cb1 = i > 0 ? str[i - 1] : 0;
+
+			// keep going until -> c1 is a qoute and cb1 is not a escape
+			while (!(c1 == '\"' && cb1 != '\\')){
+
+				if (c1 == '\\') {
+					current += str[i + 1];
+					i+=2;
+				} else {
+					current += str[i];
+					i++;
+				}
+
+				c1 = str[i];
+				cb1 = i > 0 ? str[i - 1] : 0;
 			}
 		}
 		else {
@@ -43,6 +59,7 @@ vector<string> split(const string& str, const char r){
 	return list;
 }
 
+// Trim whitespace from front and back of string
 string trim(const string& str)
 {
 	size_t first = str.find_first_not_of(' ');
@@ -60,22 +77,31 @@ DuckyParser::DuckyParser(HidCommunication* _com)
 	hidCom = _com;
 }
 
+// Parse a program, or multiple lines
 void DuckyParser::parseProgram(string lines)
 {
-	vector<string> lines_split = split(lines, COMMAND_DELM);
+	// Split the string by command line delimiter (;)
+	vector<string> lines_split = split(lines, COMMAND_DELM, false);
+
+	// Parse each line
 	for (string line : lines_split) {
 		parseLine(trim(line));
 	}
 }
 
+// Parse one command at a time (COMMAND : KEY)
 void DuckyParser::parseLine(string line) 
 {
-	vector<string> data = split(line, COMMAND_SEP_DELM);
+	// split the command into two parts, command and value
+	vector<string> data = split(line, COMMAND_SEP_DELM, true);
 	
+	// check to make sure command has approprate amount of data
 	if (data.size() >= 2) {
-		string command = data.at(0);
-		string value = data.at(1);
+		string command = data.at(0); // command at index 0
+		string value = data.at(1); // value at index 1
 		
+		// check to see which command is being called
+
 		if (command == PRESS) {
 			hidCom->press(*keyMap[value]);
 		}
@@ -94,6 +120,7 @@ void DuckyParser::parseLine(string line)
 			}
 		}
 		if (command == DELAY) {
+			// stall the program on delay command
 			auto start = chrono::system_clock::now();
 			while (true) {
 				auto end = chrono::system_clock::now();
@@ -104,6 +131,7 @@ void DuckyParser::parseLine(string line)
 	}
 }
 
+// init the key map, used to parse string into a Key obj
 void DuckyParser::initKeyMap()
 {
 	keyMap["a"] = &KEY_A_L;

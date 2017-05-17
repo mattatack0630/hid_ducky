@@ -3,26 +3,33 @@
 #include "DuckyParser.h"
 #include "HidCom.h"
 
-#include <stdio.h>
 #include <fstream>	
 #include <string>
-#include <iostream>
 
 using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-	char* deviceFileName = argv[1];
-	char* codeFileName = argv[2];
+	//if (argc >= 3) {
+		// Get parameters
+		char* deviceFileName = "test.txt";	// argv[1];
+		char* codeFileName = "Read.txt";	//argv[2];
 
-	HidCommunication hidCom(deviceFileName);
-	DuckyParser parser(&hidCom);
-	parser.initKeyMap();
+		// Init device com and parser
+		HidCommunication hidCom(deviceFileName);
+		DuckyParser parser(&hidCom);
+	
+		// Init key parsing map
+		parser.initKeyMap();
 
-	string str;
-	ifstream readFile(codeFileName);
+		// Init read from file
+		string str;
+		ifstream readFile(codeFileName);
 
-	while (getline(readFile, str)){
-		parser.parseProgram(str);
-	}
+		// Parse each line
+		while (getline(readFile, str)) {
+			parser.parseProgram(str);
+		}
+	//}
+
 }
