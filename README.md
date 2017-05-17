@@ -1,5 +1,5 @@
 # hid_ducky
 
-use like so
+Use like so:
 
-./output <device file> <command file>
+./output \<device file> \<command file>
