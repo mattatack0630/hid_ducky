@@ -114,6 +114,9 @@
     <ClCompile Include="HidCom.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
+    <Text Include="Read.txt">
+      <FileType>CppCode</FileType>
+    </Text>
     <Text Include="Makefile">
       <FileType>CppCode</FileType>
     </Text>

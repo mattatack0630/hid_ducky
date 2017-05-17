@@ -51,5 +51,8 @@
     <Text Include="Makefile">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="Read.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
