@@ -10,10 +10,10 @@ using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-	//if (argc >= 3) {
+	if (argc >= 3) {
 		// Get parameters
-		char* deviceFileName = "test.txt";	// argv[1];
-		char* codeFileName = "Read.txt";	//argv[2];
+		char* deviceFileName =  argv[1];
+		char* codeFileName = argv[2];
 
 		// Init device com and parser
 		HidCommunication hidCom(deviceFileName);
@@ -30,6 +30,6 @@ int main(int argc, char *argv[])
 		while (getline(readFile, str)) {
 			parser.parseProgram(str);
 		}
-	//}
+	}
 
 }
