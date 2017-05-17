@@ -11,8 +11,9 @@ HidCommunication::HidCommunication(FILE* _file) {
 void HidCommunication::sendKeys() {
 
 	vector<char> keyCodes = compileKeys();
+	char modBits = compileMods();
 
-	fprintf(hidFile, "%c%c", '\x00', '\x00');
+	fprintf(hidFile, "%c%c", modBits, '\x00');
 
 	for (char c : keyCodes) {
 		fprintf(hidFile, "%c", c);
@@ -36,6 +37,19 @@ vector<char> HidCommunication::compileKeys()
 	}
 
 	return keyCodes;
+}
+
+char HidCommunication::compileMods() 
+{
+	char bitmap = 0;
+	
+	for (Key key : keysDown) {
+		for (char c : key.mods) {
+			bitmap |= c;
+		}
+	}
+
+	return bitmap;
 }
 
 

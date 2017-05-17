@@ -15,7 +15,7 @@ int main()
 	DuckyParser parser(&hidCom);
 	parser.initKeyMap();
 
-	parser.parseProgram(string("STRING \"HELLO WORLD\""));
+	parser.parseProgram(string("PRESS A; PRESS B; RELEASE A"));
 
 	fclose(file);
 }

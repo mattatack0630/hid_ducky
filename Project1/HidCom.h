@@ -20,4 +20,5 @@ private:
 	void add(Key);
 	void remove(Key);
 	vector<char> compileKeys();
+	char compileMods();
 };

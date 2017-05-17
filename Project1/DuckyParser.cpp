@@ -67,7 +67,6 @@ string trim(const string& str)
 	return str.substr(first, (last - first + 1));
 }
 
-
 DuckyParser::DuckyParser(HidCommunication* _com) 
 {
 	hidCom = _com;
@@ -253,15 +252,15 @@ void DuckyParser::initKeyMap()
 
 	keyMap["ENTER"] =		&KEY_ENTER;
 	keyMap["BACK_SPACE"] =	&KEY_BACK_SPACE;
-	keyMap["SPACE"] =		&KEY_SPACE;
-	keyMap["TAB"] =			&KEY_TAB;
+	keyMap[" "] =			&KEY_SPACE;
+	keyMap["	"] =		&KEY_TAB;
 	keyMap["ESCAPE"] =		&KEY_ESCAPE;
 	keyMap["CAPS_LOCK"] =	&KEY_CAPS_LOCK;
 
 	keyMap["SHIFT"] =	&KEY_SHIFT_R;
 	keyMap["ALT"] =		&KEY_ALT_R;
 	keyMap["CTRL"] =	&KEY_CTRL_R;
-	keyMap["WIN"] =		&KEY_WIN_R;
+	keyMap["GUI"] =		&KEY_GUI_R;
 
 	keyMap["SHIFT_R"] =	&KEY_SHIFT_R;
 	keyMap["SHIFT_L"] = &KEY_SHIFT_L;
@@ -269,6 +268,6 @@ void DuckyParser::initKeyMap()
 	keyMap["ALT_L"] =	&KEY_ALT_L;
 	keyMap["CTRL_R"] =	&KEY_CTRL_R;
 	keyMap["CTRL_L"] =	&KEY_CTRL_L;
-	keyMap["WIN_R"] =	&KEY_WIN_R;
-	keyMap["WIN_L"] =	&KEY_WIN_L;
+	keyMap["GUI_R"] =	&KEY_GUI_R;
+	keyMap["GUI_L"] =	&KEY_GUI_L;
 }
